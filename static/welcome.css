@@ -399,20 +399,3 @@ input:checked + .slider:before {-webkit-transform: translateX(26px);-ms-transfor
     }
   }
   
-
-
-
-
-
-
-
-
-  .genre-pill {
-    display: inline-block;
-    background: #007bff;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 12px;
-    margin-right: 5px;
-}
