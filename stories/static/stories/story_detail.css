@@ -1,0 +1,115 @@
+General Styles
+body {
+    font-family: "Poppins", Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    max-width: 850px;
+    margin: 50px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #222;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+p {
+    color: #444;
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+
+.author-info, .date-info {
+    font-size: 16px;
+    color: #666;
+    margin: 12px 0;
+    font-weight: 500;
+}
+
+.cover-image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.cover-image img {
+    width: 100%;
+    height: auto;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.cover-image img:hover {
+    transform: scale(1.02);
+}
+
+.actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.actions a {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #a71d2a;
+}
+
+.back-link {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.back-link a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 600;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.back-link a:hover {
+    color: #bdbdbd;
+    text-decoration: underline;
+}

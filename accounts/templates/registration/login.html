@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/login.css' %}">
+</head>
+<body>
+    {% include "tools/navbar.html" %}
+
+    <div class='mainDiv'>
+        <div class="bodyDiv">
+            <div class="container">
+                <h1>Login</h1>
+
+                <!-- Display Form Errors -->
+                {% if form.errors %}
+                    <div class="error-message">
+                        <ul>
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                    </div>
+
+                    <!-- Password Input with Toggle -->
+                    <div class="form-group">
+                        <label for="id_password">Password:</label>
+                        <div class="password-container">
+                            {{ form.password }}
+                            <img src="https://img.icons8.com/ios-glyphs/30/closed-eye--v1.png" alt="toggle password" class="toggle-password" onclick="togglePassword()">
+                        </div>
+                    </div>
+
+                    <button type="submit">Login</button>
+                </form>
+
+                <p>Don't have an account? <a href="{% url 'signup' %}">Sign up here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            let passwordField = document.querySelector(".password-container input");
+            let toggleIcon = document.querySelector(".toggle-password");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleIcon.src = "https://img.icons8.com/ios/50/visible--v1.png"; // Open eye icon
+            } else {
+                passwordField.type = "password";
+                toggleIcon.src = "https://img.icons8.com/ios-glyphs/30/closed-eye--v1.png"; // Closed eye icon
+            }
+        }
+    </script>
+
+    <style>
+        /* Error Message Styling */
+        .error-message {
+            background: #ffdddd;
+            color: #d8000c;
+            border: 1px solid #d8000c;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        
+        .error-message ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .error-message li {
+            font-size: 14px;
+        }
+    </style>
+</body>
+</html>

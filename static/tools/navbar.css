@@ -1,0 +1,56 @@
+.navBar {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #FF4500;
+}
+
+.navbar-left h2 a {
+    text-decoration: none;
+    color: #FF4500;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-right {
+    /* display: flex; */
+    /* align-items: center; */
+    /* position: absolute; */
+    top: 15px;
+    right: 20px;
+}
+
+.profile-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #FF4500;
+    cursor: pointer;
+}
+
+.profile-icon:hover {
+    opacity: 0.8;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

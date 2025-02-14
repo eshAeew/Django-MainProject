@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.1/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'welcome.css' %}" />
+    <title>StoryHub</title>
+  </head>
+  <body class="light-theme dark-theme">
+    <header>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <div class="header-inner d-flex justify-content-between align-items-center">
+            <a class="navbar-brand flex-shrink-0" href="#">StoryHub</a>
+            <div class="header-content d-flex align-items-center justify-content-end">
+              <form class="d-flex justify-content-end align-items-center">
+                <div style="margin-right: 100px;" class="search-icon">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                  <input class="form-control" style="opacity: 0.5;" type="search" placeholder="Search" aria-label="Search" />
+                </div>
+
+                {% comment %}
+                <!-- Night Mode Toggle (Currently Commented) -->
+                <label class="switch flex-shrink-0 mb-0">
+                  <input id="checkbox" type="checkbox" />
+                  <span class="slider round"></span>
+                </label>
+                {% endcomment %}
+              </form>
+
+              {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="profile d-flex align-items-center">
+                  {% if profile_pic %}
+                    <div>
+                      <div>
+                        <img src="{{ profile_pic.profile_picture.url }}" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                      </div>
+                    </div>
+                  {% else %}
+                    <p>No profile picture available.</p>
+                  {% endif %}
+                </a>
+              {% else %}
+                <!-- Login & Sign Up Buttons -->
+                <div class="navbar-right">
+                  <a href="{% url 'login' %}" style="margin-right: 5px;" class="btn btn-outline-primary">Login</a>
+                  <a href="{% url 'signup' %}" style="margin-left: 5px;" class="btn btn-primary ms-2">Sign Up</a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <button class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <div class="nft-store">
+      <div class="container-fluid">
+        <div class="nft-store-inner d-flex">
+          <div class="menu-links">
+            <ul>
+              <li class="nav-item">
+                <a href="#" class="d-flex align-items-center nav-link">
+                  <i class="fa fa-heart-o" aria-hidden="true"></i>
+                  <span>Favourite</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="d-flex align-items-center nav-link">
+                  <i class="fa fa-square-o" aria-hidden="true"></i>
+                  <span>Collections</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="d-flex align-items-center nav-link">
+                  <i class="fa fa-fire" aria-hidden="true"></i>
+                  <span>Trending</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="d-flex align-items-center nav-link">
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <span>Featured</span>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{% url 'profile' %}" class="d-flex align-items-center nav-link">
+                  <i class="fa fa-cog" aria-hidden="true"></i>
+                  <span>Settings</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="nft-store-content">
+            <div class="nft-up-content">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="fire-bubble-art d-flex justify-content-between align-items-center">
+                    <div class="fire-content fire-width">
+                      <h3 class="mb-0">{{ welcome_page_story.title }}</h3>
+                      <div class="fire-time d-flex justify-content-between">
+                        <div class="current-bid">
+                          <h4>Genere</h4>
+                          <span>{{ genere }}</span>
+                        </div>
+                      </div>
+                      <div class="d-flex fire-links">
+                        <a href="story_list" class="theme-btn">Read</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="trending">
+              <div class="trending-title">
+                <div class="row justify-content-between align-items-center">
+                  <div class="col-6">
+                    <h2>Trending Stories</h2>
+                  </div>
+                  <div class="col-6 text-right">
+                    <a href="story_list" class="theme-btn">View More</a>
+                  </div>
+                </div>
+              </div>
+              <div class="trending-grid">
+
+                <div class="row">
+
+                  <div class="stories-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+                    {% for story in stories %}
+                      <div class="trending-content" style="background: #1c1c1c; border-radius: 10px; padding: 15px; max-width: 300px; min-height: 350px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease; position: relative;">
+                        {% if story.cover_image %}
+                          <a href="{% url 'story_detail' pk=story.pk %}"><img src="{{ story.cover_image.url }}" alt="card-images" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px;" /></a>
+                        {% else %}
+                          <div style="text-align: center; padding: 40px; background: #444; border-radius: 8px;">
+                            <a style="text-decoration: none;" href="{% url 'story_detail' pk=story.pk %}"><span style="color: #ccc;">Banner Coming Soon</span></a>
+                          </div>
+                        {% endif %}
+
+                        <div class="trending-desc" style="padding: 10px 0; color: white; text-align: left;">
+                          <a href="{% url 'story_detail' pk=story.pk %}" class="clickable-card" style="text-decoration: none; color: inherit; display: block;">
+                            <h4 class="user-title" style="font-size: 16px; font-weight: bold; color: #ddd; margin: 0;">{{ story.author }}</h4>
+                            <h3 class="user-position" style="font-size: 18px; font-weight: bold; color: #f0f0f0; margin: 5px 0 10px;">{{ story.title }}</h3>
+
+                            <div class="bid" style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; gap: 20px;">
+                              <div style="text-align: left; flex: 1;">
+                                <h5 style="font-size: 12px; color: #bbb; margin-bottom: 4px;">Published At</h5>
+                                <span style="font-size: 14px; color: #fff;">{{ story.created_at|date:'d M, Y, g:i A' }}</span>
+                              </div>
+
+                              <div style="text-align: left; flex: 1;">
+                                <h5 style="font-size: 12px; color: #bbb; margin-bottom: 4px;">Genre</h5>
+                                <span style="font-size: 14px; color: #fff;">Genre details here</span>
+                              </div>
+                            </div>
+
+                            {% if story.author.userprofile.profile_picture %}
+                              <img src="{{ story.author.userprofile.profile_picture.url }}" alt="Author Image" style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover; 
+                                position: absolute; top: 12px; right: 12px; box-shadow: 0 0 6px rgba(255, 255, 255, 0.2); border: 2px solid #444;" />
+                            {% else %}
+                              <img src="/media/default.jpg" alt="Default Profile" class="user-image" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; position: absolute; bottom: 15px; right: 15px; border: 2px solid #fff; background-color: #000;" />
+                            {% endif %}
+                          </a>
+                        </div>
+                      </div>
+                    {% empty %}
+                      <p style="color: white; text-align: center;">No published stories available.</p>
+                    {% endfor %}
+                  </div>
+
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.querySelector(".search-icon input");
+        const storiesContainer = document.querySelector(".stories-container");
+        const stories = storiesContainer.querySelectorAll(".trending-content");
+    
+        // Create a "No results found" message
+        const noResultsMessage = document.createElement("p");
+        noResultsMessage.innerText = "No results found.";
+        noResultsMessage.style.color = "white";
+        noResultsMessage.style.textAlign = "center";
+        noResultsMessage.style.display = "none"; // Initially hidden
+        storiesContainer.appendChild(noResultsMessage);
+    
+        searchInput.addEventListener("input", function () {
+            const searchText = searchInput.value.trim().toLowerCase();
+            let hasResults = false;
+    
+            stories.forEach((story) => {
+                const title = story.querySelector(".user-position")?.innerText.toLowerCase() || "";
+                const author = story.querySelector(".user-title")?.innerText.toLowerCase() || "";
+    
+                if (title.includes(searchText) || author.includes(searchText)) {
+                    story.style.display = "flex"; // Show matching story
+                    hasResults = true;
+                } else {
+                    story.style.display = "none"; // Hide non-matching stories
+                }
+            });
+    
+            // Show "No results found" if no stories match
+            noResultsMessage.style.display = hasResults ? "none" : "block";
+        });
+    });
+       
+    </script>
+  </body>
+</html>

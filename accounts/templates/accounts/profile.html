@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/profile.css' %}"> 
+</head>
+<body>
+    {% include "tools/navbar.html" %}
+    <div class='mainDiv'>
+        <div class="profile-container">
+            <h1>Your Profile</h1>
+            <p><strong>Username:</strong> {{ user_profile.user.username }}</p>
+            <p><strong>Bio:</strong> {{ user_profile.bio }}</p>
+            <p><strong>About:</strong> {{ user_profile.about }}</p>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <label for="id_profile_picture">Change Profile Picture:</label>
+
+                <div class="current-profile-pic">
+                    <img src="{{ user_profile.profile_picture.url }}" alt="Current Profile Picture">
+                </div>
+                
+                <input type="file" name="profile_picture" id="id_profile_picture" accept="image/*">
+                
+
+                <label for="id_bio">Update Bio:</label>
+                {{ form.bio }}
+
+                <label for="id_about">Update About:</label>
+                {{ form.about }}
+
+                <button type="submit">Update Profile</button>
+            </form>
+            <br>
+            <a href="{% url 'password_change' %}">
+                <button>Change Password</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

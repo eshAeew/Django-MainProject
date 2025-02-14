@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/signup.css' %}"> 
+
+</head>
+<body>
+    {% include "tools/navbar.html" %}
+    <div class="mainDiv">
+        <div class="container">
+            <h1>Sign Up</h1>
+
+            <!-- Display Error Messages -->
+            {% if form.errors %}
+                <div class="error-message">
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Username -->
+                <div class="form-group">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
+
+
+                <div class="form-group">
+                    {{ form.password1.label_tag }}
+                    <div class="password-container">
+                        {{ form.password1 }}
+                        <img src="https://img.icons8.com/ios-glyphs/30/closed-eye--v1.png" 
+                             alt="toggle password" class="toggle-password" 
+                             onclick="togglePassword('id_password1', this)">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form.password2.label_tag }}
+                    <div class="password-container">
+                        {{ form.password2 }}
+                        <img src="https://img.icons8.com/ios-glyphs/30/closed-eye--v1.png" 
+                             alt="toggle password" class="toggle-password" 
+                             onclick="togglePassword('id_password2', this)">
+                    </div>
+                </div>
+
+                <button type="submit">Sign Up</button>
+            </form>
+
+            <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(fieldId, icon) {
+            let passwordField = document.getElementById(fieldId);
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                icon.src = "https://img.icons8.com/ios/50/visible--v1.png"; // Open eye icon
+            } else {
+                passwordField.type = "password";
+                icon.src = "https://img.icons8.com/ios-glyphs/30/closed-eye--v1.png"; // Closed eye icon
+            }
+        }
+    </script>
+
+    <style>
+
+        .error-message {
+            background: #ffdddd;
+            color: #d8000c;
+            border: 1px solid #d8000c;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        
+        .error-message ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .error-message li {
+            font-size: 14px;
+        }
+
+        .password-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .password-container input {
+            flex: 1;
+            padding-right: 20px;
+            height: 40px; 
+            font-size: 16px;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            bottom: 25px;
+            width: 20px; 
+            height: 20px;
+            cursor: pointer;
+        }        
+
+        .toggle-password:hover {
+            opacity: 0.8;
+        }
+    </style>
+</body>
+</html>

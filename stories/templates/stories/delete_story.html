@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Story</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'stories/delete_story.css' %}"> 
+</head>
+<body>
+
+    <div class="container">
+        <h1>Are you sure you want to delete this story?</h1>
+        <p><strong>{{ story.title }}</strong></p>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Yes, Delete</button>
+        </form>
+        <p><a href="{% url 'story_detail' pk=story.pk %}">Cancel</a></p>
+    </div>
+
+</body>
+</html>

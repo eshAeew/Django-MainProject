@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to StoryHub</title>
+    {% load static %} 
+    <link rel="stylesheet" href="{% static 'tools/navbar.css' %}">
+    <style>
+        /* Navbar Right - Adjusted for proper alignment */
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-right: 25px; /* Moves everything slightly to the left */
+        }
+
+        /* Profile Icon */
+        .profile-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-right: -10px; /* Moves profile pic slightly to the left */
+        }
+
+        .profile-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Dropdown container */
+        .dropdown {
+            position: relative;
+            right: 10px; /* Moves dropdown left */
+        }
+
+        /* Dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 68px; /* Position dropdown below the icon */
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            min-width: 180px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            z-index: 1000;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Dropdown links */
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 15px;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #FF4500;
+            color: white;
+        }
+
+        /* Show dropdown on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="navBar">
+    <div class="navbar">
+        <div class="navbar-left">
+            <h2 style="color: #FF4500;">
+                <a href="{% url 'welcome_page' %}">StoryHub</a>
+            </h2>
+        </div>
+
+        <div class="navbar-right">
+            {% if user.is_authenticated %}
+                <div class="dropdown">
+                    <img src="{% if user.userprofile.profile_picture %}{{ user.userprofile.profile_picture.url }}
+                    {% else %}
+                    {% static 'profile_pics/default_user.png' %}
+                    {% endif %}" 
+                    class="profile-icon" alt="Profile">
+                    
+                    <div class="dropdown-content">
+                        <a href="{% url 'profile' %}">Profile</a>
+                        <a href="#" onclick="document.getElementById('logout-form').submit();">Logout</a>
+                        <form id="logout-form" method="POST" action="{% url 'logout' %}" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+                    </div>
+                    
+                    
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

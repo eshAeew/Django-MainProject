@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Story List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'stories/story_list.css' %}" />
+  </head>
+  <body>
+    {% include 'tools/navbar.html' %}
+
+    <div class="container">
+      <h1>📖 Published Stories</h1>
+
+      {% if user.is_authenticated %}
+        <div class="create-story">
+          <a href="{% url 'create_story' %}"><button>Create New Story</button></a>
+        </div>
+        <div class="story-list">
+          <ul>
+            {% for story in stories %}
+              <li>
+                <a href="{% url 'story_detail' story.pk %}" class="story-link">
+                  <div class="story-header">
+                    <p>
+                      <strong>By:</strong> <span class="author">{{ story.author }}</span>
+                    </p>
+                  </div>
+                  <div class="story-content">
+                    <p>
+                      <h2>Title:</h2>
+                    </p>
+                    <h1 class="story-title">{{ story.title }}</h1>
+                    <p>
+                      <strong>Published at:</strong> <span class="publish-date">{{ story.created_at }}</span>
+                    </p>
+                  </div>
+                </a>
+              </li>
+            {% empty %}
+              <li class="empty-message">No stories published yet.</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <form method="POST" action="{% url 'logout' %}">
+          {% csrf_token %}
+          {% comment %} <button type="submit" class="logout-button">Logout</button> {% endcomment %}
+        </form>
+      {% else %}
+        <div class="login-section">
+          <p>You are not logged in.</p>
+          <a href="{% url 'login' %}"><button>Login</button></a>
+        </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
