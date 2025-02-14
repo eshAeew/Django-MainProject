@@ -96,6 +96,7 @@
                     
                     <div class="dropdown-content">
                         <a href="{% url 'profile' %}">Profile</a>
+                        <a href="{% url 'unpublished_stories' %}">Unpublished Stories</a>
                         <a href="#" onclick="document.getElementById('logout-form').submit();">Logout</a>
                         <form id="logout-form" method="POST" action="{% url 'logout' %}" style="display: none;">
                             {% csrf_token %}

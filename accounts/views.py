@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from .forms import ProfileUpdateForm
+from stories.models import *
 
 def signup_view(request):
     if request.method == 'POST':
@@ -64,3 +65,15 @@ def profile_view(request):
         'form': form,
         'user_profile': user_profile  # Pass user_profile to the template
     })
+
+
+
+
+
+
+
+
+
+
+
+

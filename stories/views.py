@@ -213,3 +213,11 @@ def create_story(request):
 #         stories = stories.filter(genres__name__icontains=selected_genre)
 
 #     return render(request, 'your_template.html', {'stories': stories})
+
+
+
+
+@login_required
+def unpublished_stories(request):
+    stories = Story.objects.filter(author=request.user, is_published=False)  # Fetch only the user's unpublished stories
+    return render(request, 'stories/unpublished_stories.html', {'stories': stories})

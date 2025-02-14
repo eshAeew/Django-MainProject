@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unpublished Stories</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'stories/story_list.css' %}">
+</head>
+<body>
+    {% include 'tools/navbar.html' %}
+
+    <div class="container">
+        <h1>Your Unpublished Stories</h1>
+        {% if stories %}
+            <div class="story-list">
+                <ul>
+                    {% for story in stories %}
+                        <li>
+                            <a href="{% url 'story_detail' story.pk %}" class="story-link">
+                                <h2>{{ story.title }}</h2>
+                                <p><strong>Created at:</strong> {{ story.created_at|date:"d M, Y, g:i A" }}</p>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p>You have no unpublished stories.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

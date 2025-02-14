@@ -11,6 +11,7 @@ urlpatterns = [
     path('story/<int:pk>/edit/', views.edit_story, name='edit_story'),
     path('story/<int:pk>/delete/', views.delete_story, name='delete_story'),
     path('search-genres/', search_genres, name='search-genres'),
+    path('unpublished-stories/', views.unpublished_stories, name='unpublished_stories'),
 ]
 
 

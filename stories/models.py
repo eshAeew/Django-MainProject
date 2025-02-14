@@ -13,7 +13,7 @@ class Story(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    is_published = models.BooleanField(default=False)
+    is_published = models.BooleanField(default=True)
     cover_image = models.ImageField(upload_to='story_covers/', blank=True, null=True)
     genres = models.ManyToManyField(Genre, related_name="stories")  # Many-to-Many Relationship
 
