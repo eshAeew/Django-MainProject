@@ -165,14 +165,14 @@
                               <div style="text-align: left; flex: 1;">
                                 <h5 style="font-size: 12px; color: #bbb; margin-bottom: 4px;">Genre</h5>
                                 <span style="font-size: 14px; color: #fff;">
-                                    {% if story.genres.all %}
-                                        {% for genre in story.genres.all %}
-                                            <span class="genre-pill">{{ genre.name }}</span>
-                                        {% endfor %}
-                                    {% else %}
-                                        No Genre
-                                    {% endif %}
-                                </span>
+                                  {% if story.genre.all %}
+                                      {% for genre in story.genre.all %}
+                                          <span class="genre-pill">{{ genre.name }}</span>
+                                      {% endfor %}
+                                  {% else %}
+                                      No Genre
+                                  {% endif %}
+                              </span>
                             </div>
                             
 
@@ -199,6 +199,12 @@
           </div>
         </div>
       </div>
+      
+      
+
+
+
+
     </div>
 
     <script>
